@@ -1,0 +1,28 @@
+.dropzone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 400px;
+    margin: 0 auto;
+    border: 1px dashed #00d1b2;
+    background-color: #f6fbfe;
+    font-size: 1.4em;
+    cursor: pointer;
+}
+
+.button-card {
+    display: block;
+    height: auto;
+}
+
+.navbar {
+    justify-content: center;
+}
+
+.logo {
+    margin-right: 10px;
+}
+
+.section.is-small {
+    padding: 1rem;
+}
