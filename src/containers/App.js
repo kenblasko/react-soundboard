@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import debounce from 'debounce'
 import actions from '../actions'
 import Dropzone from 'react-dropzone'
 
@@ -9,12 +10,11 @@ import ProgressBar from '../components/ProgressBar'
 import Header from '../components/static/Header'
 import Footer from '../components/static/Footer'
 
-
 class App extends Component {  
 
   componentDidMount() {
-    document.addEventListener('keydown', (e) => this.props.keyPress(e.key))
-    document.addEventListener('keyup', () => this.props.keyPress(''))
+    document.addEventListener('keydown', (e) => debounce(this.props.keyPress(e.key), 250))
+    document.addEventListener('keyup', () => debounce(this.props.keyPress(''), 250))
   }
 
   render() {
