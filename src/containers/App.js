@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import debounce from 'debounce'
 import actions from '../actions'
 import Dropzone from 'react-dropzone'
+import {maxFileSize} from '../config'
 
 import Item from '../components/Item'
 import ProgressBar from '../components/ProgressBar'
@@ -13,8 +14,14 @@ import Footer from '../components/static/Footer'
 class App extends Component {  
 
   componentDidMount() {
-    document.addEventListener('keydown', (e) => debounce(this.props.keyPress(e.key), 250))
-    document.addEventListener('keyup', () => debounce(this.props.keyPress(''), 250))
+    document.addEventListener('keydown', (e) => {
+      if (e.repeat) return;
+      debounce(this.props.keyPress(e.key), 250)
+    })
+    document.addEventListener('keyup', (e) => {
+      if (e.repeat) return;
+      debounce(this.props.keyPress(''), 250)
+    })
   }
 
   render() {
@@ -52,7 +59,7 @@ class App extends Component {
           <Dropzone className="dropzone" 
             onDrop={this.props.onFileUpload} 
             accept="audio/*" 
-            maxSize={1048576}  
+            maxSize={maxFileSize}  
             multiple={false}>
             <div className="has-text-centered has-text-primary section">
               Drag an audio file here or click to upload!  1 MB limit.

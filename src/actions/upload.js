@@ -8,11 +8,9 @@ import {
   HANDLE_ITEM_ERROR
 } from './types'
 
-import {
-  delay
-} from '../utils/helpers'
-
-import firebase from '../firebase'
+import {delay} from '../utils/helpers'
+import {maxFileSize} from '../config'
+import firebase from '../config'
 
 const storage = firebase.storage().ref()
 const db = firebase.database()
@@ -20,20 +18,23 @@ const db = firebase.database()
 export function onFileUpload(acceptedFiles, rejectedFiles) {
   return (dispatch) => {
     dispatch(fileUploadInit())
-
     if (rejectedFiles.length > 0) { // We should really never hit here, but just incase
-      dispatch(handleFileUploadError('Invalid file format, only audio is allowed'))
-      return delay(3000).then(() => {
-        dispatch(fileUploadReset())
+      rejectedFiles.forEach(file => {
+        file.size > maxFileSize ?
+          dispatch(handleFileUploadError('File must not exceed one megabyte')) :
+          dispatch(handleFileUploadError('Invalid file format, only audio is allowed'))
+          return delay(3000).then(() => {
+            dispatch(fileUploadReset())
+          })
       })
     }
-    acceptedFiles.forEach((file, index) => {
-      processUpload(file, index, dispatch)
+    acceptedFiles.forEach(file => {
+      processUpload(file, dispatch)
     })
   }
 }
 
-export function processUpload(file, index, dispatch) {
+export function processUpload(file, dispatch) {
   const name = file.name
   const metadata = { contentType: file.type }
 
