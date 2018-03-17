@@ -14,13 +14,14 @@ import Footer from '../components/static/Footer'
 class App extends Component {  
 
   componentDidMount() {
-    document.addEventListener('keydown', (e) => {
-      if (e.repeat) return;
-      debounce(this.props.keyPress(e.key), 250)
-    })
-    document.addEventListener('keyup', (e) => {
-      if (e.repeat) return;
-      debounce(this.props.keyPress(''), 250)
+    this.addKeyListener('keydown')
+    this.addKeyListener('keyup', false)
+  }
+
+  addKeyListener(type, useEventKey = true) {
+    document.addEventListener(type, (event) => {
+      if (event.repeat) return;
+      debounce(this.props.keyPress(useEventKey ? event.key : ''), 250)
     })
   }
 
