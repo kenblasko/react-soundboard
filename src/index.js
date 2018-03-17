@@ -61,7 +61,7 @@ function render(items = []) {
   const store = createStore({ 
     items: items.map(addVirtualProps), 
     app: globalState 
-  });
+  })
   ReactDOM.render(
     <Provider store={store}>
       <App/>

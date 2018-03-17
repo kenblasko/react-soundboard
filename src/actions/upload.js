@@ -14,12 +14,12 @@ import {
 
 import firebase from '../firebase'
 
-const storage = firebase.storage().ref();
+const storage = firebase.storage().ref()
 const db = firebase.database()
 
 export function onFileUpload(acceptedFiles, rejectedFiles) {
   return (dispatch) => {
-    dispatch(fileUploadInit());
+    dispatch(fileUploadInit())
 
     if (rejectedFiles.length > 0) { // We should really never hit here, but just incase
       dispatch(handleFileUploadError('Invalid file format, only audio is allowed'))
@@ -29,13 +29,13 @@ export function onFileUpload(acceptedFiles, rejectedFiles) {
     }
     acceptedFiles.forEach((file, index) => {
       processUpload(file, index, dispatch)
-    });
+    })
   }
 }
 
 export function processUpload(file, index, dispatch) {
-  const name = file.name;
-  const metadata = { contentType: file.type };
+  const name = file.name
+  const metadata = { contentType: file.type }
 
   storage.child(name).getDownloadURL()
     .then((url) => { // Exists so update but don't save to DB
@@ -43,17 +43,17 @@ export function processUpload(file, index, dispatch) {
         .then(snapshot => {
           dispatch(fileUploadComplete('File exists - updated metadata.'))
           delay(3000).then(() => dispatch(fileUploadReset()))
-        });
+        })
     }) 
     .catch((err) => { // Not found so add
       const task = storage.child(name).put(file, metadata)
       task.on('state_changed', snapshot => {
         dispatch(fileUploadProgress(snapshot.bytesTransferred, snapshot.totalBytes))
-      });
+      })
       task.then(snapshot => {
         if (snapshot.state === 'success') {
           const item = { name, url: snapshot.downloadURL }
-          saveToDb(item, dispatch);
+          saveToDb(item, dispatch)
         } else {
           dispatch(handleFileUploadError('File was not saved.'))
           return delay(3000).then(() => dispatch(fileUploadReset()))
@@ -62,7 +62,7 @@ export function processUpload(file, index, dispatch) {
       .catch(err => {
         dispatch(handleFileUploadError(err.toString()))
         return delay(3000).then(() => dispatch(fileUploadReset()))
-      });
+      })
     })
 }
 
@@ -70,13 +70,13 @@ export function saveToDb(item, dispatch) {
   db.ref('files').push(item)
     .then(res => {
       let id = res.getKey()
-      dispatch(fileUploadComplete('File uploaded successfully!'));
-      dispatch(itemAdd(id, item));
+      dispatch(fileUploadComplete('File uploaded successfully!'))
+      dispatch(itemAdd(id, item))
       delay(3000).then(() => dispatch(fileUploadReset()))
     })
     .catch(error => {
       dispatch(handleItemError(error.toString()))
-    });
+    })
 }
 
 export function fileUploadProgress(transferred, total) {

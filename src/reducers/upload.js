@@ -4,7 +4,7 @@ import {
   FILE_UPLOAD_COMPLETE, 
   FILE_UPLOAD_ERROR,
   FILE_UPLOAD_RESET
-} from '../actions/types';
+} from '../actions/types'
 
 const defaultState = {
   loading: false,

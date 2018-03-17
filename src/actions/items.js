@@ -23,7 +23,7 @@ export function addKeyBinding(item, value) {
       return dispatch(handleError(`${value} is already bound.  Unbind ${matched.name} before setting this new binding.`))
     }
     const newBindings = {...existingBindings, [item.id]: value}
-    localStorage.setItem('_cbt_sb_keys', JSON.stringify(newBindings))
+    setLocalStorage(newBindings)
     dispatch(setKeyBinding(item, value))
     dispatch(updateKeyBindings(newBindings))
     dispatch(editKeyBinding(item))

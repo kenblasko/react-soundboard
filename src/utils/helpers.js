@@ -8,11 +8,11 @@ export const validate = (fields) => {
 
 export const reset = (fields) => {
   Object.keys(fields).forEach(f => fields[f] = '')
-  return fields;
+  return fields
 }
 
 export const capitalize = (s) => {
-  return s.charAt(0).toUpperCase() + s.slice(1);
+  return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
 export const getLocalStorage = (parse = false, key = '_cbt_sb_keys') => {
@@ -28,4 +28,4 @@ export const bindingExists = (existingBindings, items, value) => {
   return items.find(i => i.id === id)
 }
 
-export const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+export const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))

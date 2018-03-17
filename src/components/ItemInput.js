@@ -4,7 +4,11 @@ const ItemInput = ({ value, item, inUse, keyAssigned, handleChange, removeKeyBin
   return (
     <div>
       <div className="section is-small">
-        <input className="input is-small" type="text" maxLength="1" defaultValue={value} onChange={(e) => handleChange(item, e.target.value)}/>
+        <input className="input is-small" 
+          type="text" 
+          maxLength="1" 
+          defaultValue={value} 
+          onChange={(e) => handleChange(item, e.target.value)}/>
       </div>
       {item.keyEdittingValue.length === 1 && !inUse ? 
         <button className="button is-primary is-small" 
