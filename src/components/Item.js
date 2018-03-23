@@ -63,36 +63,34 @@ export default class Item extends Component {
     } = item
     return (
       <div className="column is-3">
-        <div className={isPlaying ? 'message is-primary' : 'message'}>
-          <div className="message-body is-medium has-text-centered">
-            <section className={isPlaying ? 'button button-card is-primary' : 'button button-card'} 
-              onMouseDown={this.mouseDown} 
-              onMouseUp={this.mouseUp}>
-              <h2>{name.split('.')[0]}</h2>
-              <audio preload="true" ref={this.onMount} src={url} />
-              {keyAssigned &&<h2 className="is-size-3 has-text-weight-bold">{keyAssigned}</h2>}
-            </section>
-            <section className="card-content">
-              {isEditing && 
-                <span className="button is-info is-small" 
-                  onClick={() => editKeyBinding(item)}>Cancel</span>}
-              {!isEditing && keyAssigned && 
-                <span className="button is-primary is-small" 
-                  onClick={() => editKeyBinding(item)}>Edit Binding</span>}
-              {!isEditing && !keyAssigned && 
-                <span className="button is-info is-small" 
-                  onClick={() => editKeyBinding(item)}>Add Binding</span>}
-              {isEditing && 
-                <ItemInput 
-                  item={item} 
-                  value={keyAssigned} 
-                  inUse={keyBindingsByLetters.includes(keyEdittingValue)} 
-                  handleChange={handleChange} 
-                  addKeyBinding={addKeyBinding} 
-                  keyAssigned={keyAssigned} 
-                  removeKeyBinding={removeKeyBinding}/>}
-            </section>
-          </div>
+        <div className="section is-small has-text-centered">
+          <section className={isPlaying ? 'button button-card is-primary' : 'button button-card'} 
+            onMouseDown={this.mouseDown} 
+            onMouseUp={this.mouseUp}>
+            <h2>{name.split('.')[0]}</h2>
+            <audio preload="true" ref={this.onMount} src={url} />
+            {keyAssigned && <h2 className="is-size-4 has-text-weight-bold">{keyAssigned === ' ' ? 'Spacebar' : keyAssigned}</h2>}
+          </section>
+          <section className="card-content">
+            {isEditing && 
+              <span className="button is-info is-small" 
+                onClick={() => editKeyBinding(item)}>Cancel</span>}
+            {!isEditing && keyAssigned && 
+              <span className="button is-primary is-small" 
+                onClick={() => editKeyBinding(item)}>Edit Binding</span>}
+            {!isEditing && !keyAssigned && 
+              <span className="button is-info is-small" 
+                onClick={() => editKeyBinding(item)}>Add Binding</span>}
+            {isEditing && 
+              <ItemInput 
+                item={item} 
+                value={keyAssigned} 
+                inUse={keyBindingsByLetters.includes(keyEdittingValue)} 
+                handleChange={handleChange} 
+                addKeyBinding={addKeyBinding} 
+                keyAssigned={keyAssigned} 
+                removeKeyBinding={removeKeyBinding}/>}
+          </section>
         </div>
       </div>
     )

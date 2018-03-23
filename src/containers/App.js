@@ -9,7 +9,6 @@ import {maxFileSize} from '../config'
 import Item from '../components/Item'
 import ProgressBar from '../components/ProgressBar'
 import Header from '../components/static/Header'
-import Footer from '../components/static/Footer'
 
 class App extends Component {  
 
@@ -83,7 +82,6 @@ class App extends Component {
                     keyBindingsByLetters={keyBindingsByLetters}/>)}
             </div>}
         </div>
-        <Footer />
       </main>
     )
   }
