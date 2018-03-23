@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import ItemInput from './ItemInput'
+import AudioIcon from './static/AudioIcon'
 
 export default class Item extends Component {
 
@@ -67,7 +68,7 @@ export default class Item extends Component {
           <section className={isPlaying ? 'button button-card is-primary' : 'button button-card'} 
             onMouseDown={this.mouseDown} 
             onMouseUp={this.mouseUp}>
-            <h2>{name.split('.')[0]}</h2>
+            <h2><span>{name.split('.')[0]}</span> <AudioIcon /></h2>
             <audio preload="true" ref={this.onMount} src={url} />
             {keyAssigned && <h2 className="is-size-4 has-text-weight-bold">{keyAssigned === ' ' ? 'Spacebar' : keyAssigned}</h2>}
           </section>

@@ -10,6 +10,18 @@
     cursor: pointer;
 }
 
+.button h2 {
+    display: inline-flex;
+    align-items: center;
+}
+
+.button svg {
+    width: 15px;
+    height: 15px;
+    opacity: 0.5;
+    margin-left: 4px;
+}
+
 .button-card {
     display: block;
     height: auto;
